@@ -1,0 +1,203 @@
+DROP DATABASE IF EXISTS demodb;
+
+CREATE DATABASE demodb
+  DEFAULT CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+
+USE demodb;
+
+-- ----------------------------
+--  Table structure for tb_user
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_user;
+
+CREATE TABLE tb_user
+(
+  user_id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+    COMMENT '用户ID',
+  email        VARCHAR(64)                           NOT NULL
+    COMMENT '电子邮件',
+  password     VARCHAR(64)                           NOT NULL
+    COMMENT '密码',
+  salt         VARCHAR(64)                           NOT NULL
+    COMMENT '密码盐',
+  is_deleted   TINYINT                               NOT NULL DEFAULT 0
+    COMMENT '逻辑删除',
+  created_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP
+    COMMENT '创建时间',
+  updated_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    COMMENT '更新时间'
+)
+  COMMENT '用户表';
+CREATE UNIQUE INDEX tb_email_UNIQUE
+  ON tb_user (email);
+
+-- ----------------------------
+--  Table structure for tb_user_profile
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_user_profile;
+
+CREATE TABLE tb_user_profile
+(
+  user_id      BIGINT(20)   NOT NULL
+    COMMENT '用户ID',
+  name         VARCHAR(32)  NOT NULL DEFAULT ''
+    COMMENT '姓名',
+  id_type      VARCHAR(1)   NOT NULL DEFAULT '0'
+    COMMENT '证件类型',
+  id_no        VARCHAR(128) NOT NULL DEFAULT ''
+    COMMENT '证件号码',
+  ip_address   VARCHAR(20)  NOT NULL DEFAULT ''
+    COMMENT 'IP地址',
+  is_deleted   TINYINT      NOT NULL DEFAULT 0
+    COMMENT '逻辑删除',
+  created_time TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+    COMMENT '创建时间',
+  updated_time TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    COMMENT '更新时间'
+)
+  COMMENT '用户信息表';
+CREATE UNIQUE INDEX user_id_UNIQUE
+  ON tb_user_profile (user_id);
+
+-- ----------------------------
+--  Table structure for tb_role
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_role;
+
+CREATE TABLE tb_role
+(
+  role_id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+    COMMENT '主键, 自增',
+  role_code    VARCHAR(32)                           NOT NULL
+    COMMENT '角色代码',
+  role_name    VARCHAR(32)                           NOT NULL
+    COMMENT '角色名称',
+  is_deleted   TINYINT                               NOT NULL DEFAULT 0
+    COMMENT '逻辑删除',
+  created_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP
+    COMMENT '创建时间',
+  updated_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    COMMENT '更新时间'
+)
+  COMMENT '角色表';
+CREATE UNIQUE INDEX role_code_UNIQUE
+  ON tb_role (role_code);
+
+-- ----------------------------
+--  Table structure for tb_menu
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_menu;
+
+CREATE TABLE tb_menu
+(
+  menu_id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+    COMMENT '主键, 自增',
+  menu_code    VARCHAR(32)                           NOT NULL
+    COMMENT '菜单代码',
+  menu_name    VARCHAR(32)                           NOT NULL
+    COMMENT '菜单名称',
+  parent_code  VARCHAR(32)                           NOT NULL DEFAULT ''
+    COMMENT '父菜单代码',
+  url          VARCHAR(128)                          NOT NULL DEFAULT ''
+    COMMENT '菜单地址',
+  sort         INT(11)                               NOT NULL DEFAULT 0
+    COMMENT '菜单排序(从0开始)',
+  icon         VARCHAR(128)                          NOT NULL DEFAULT ''
+    COMMENT '菜单图标的样式',
+  is_deleted   TINYINT                               NOT NULL DEFAULT 0
+    COMMENT '逻辑删除',
+  created_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP
+    COMMENT '创建时间',
+  updated_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    COMMENT '更新时间'
+)
+  COMMENT '菜单表';
+CREATE INDEX sort_ix
+  ON tb_menu (sort);
+CREATE UNIQUE INDEX menu_code_UNIQUE
+  ON tb_menu (menu_code);
+
+-- ----------------------------
+--  Table structure for tb_user_role
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_user_role;
+
+CREATE TABLE tb_user_role
+(
+  user_id BIGINT(20) NOT NULL
+    COMMENT '用户ID',
+  role_id BIGINT(20) NOT NULL
+    COMMENT '角色ID',
+  PRIMARY KEY (user_id, role_id)
+)
+  COMMENT '用户角色表';
+
+-- ----------------------------
+--  Table structure for rtb_ole_menu
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_role_menu;
+
+CREATE TABLE tb_role_menu
+(
+  role_id BIGINT(20) NOT NULL
+    COMMENT '角色ID',
+  menu_id BIGINT(20) NOT NULL
+    COMMENT '菜单ID',
+  PRIMARY KEY (role_id, menu_id)
+)
+  COMMENT '角色菜单表';
+
+#====================初始数据====================#
+
+-- ----------------------------
+--  data for tb_user
+-- ----------------------------
+INSERT INTO tb_user
+  (user_id, email, PASSWORD, salt)
+VALUES
+  # 密码：11111111
+  (1, 'admin@kangyonggan.com', '8d0d54520fe0466ac80827d9f2f038b22e3c7c2d', 'd820c214488d7c6f');
+
+INSERT INTO tb_user_profile
+  (user_id, name, id_type, id_no, ip_address)
+VALUES (1, '管理员', '0', '', '127.0.0.1');
+
+-- ----------------------------
+--  data for tb_role
+-- ----------------------------
+INSERT INTO tb_role
+  (role_id, role_code, role_name)
+VALUES (1, 'ROLE_ADMIN', '管理员');
+
+-- ----------------------------
+--  data for tb_menu
+-- ----------------------------
+INSERT INTO tb_menu
+  (menu_code, menu_name, parent_code, url, sort, icon)
+VALUES ('DASHBOARD', '工作台', '', 'dashboard', 0, 'menu-icon fa fa-dashboard'),
+
+       ('SYSTEM', '系统', '', '', 1, 'menu-icon fa fa-cogs'),
+       ('SYSTEM_USER', '用户管理', 'SYSTEM', 'dashboard/system/user', 0, ''),
+       ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 'dashboard/system/role', 1, ''),
+       ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 'dashboard/system/menu', 2, '');
+
+-- ----------------------------
+--  data for tb_user_role
+-- ----------------------------
+INSERT INTO tb_user_role
+VALUES (1, 1);
+
+-- ----------------------------
+--  data for tb_role_menu
+-- ----------------------------
+INSERT INTO tb_role_menu
+SELECT 1,
+       menu_id
+FROM tb_menu;
