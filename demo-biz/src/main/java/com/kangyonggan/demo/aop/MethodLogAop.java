@@ -36,7 +36,7 @@ public class MethodLogAop {
      * @throws Throwable
      */
     @Around("pointCut()")
-    public Object twiceAsOld(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();
         Class clazz = joinPoint.getTarget().getClass();
 
