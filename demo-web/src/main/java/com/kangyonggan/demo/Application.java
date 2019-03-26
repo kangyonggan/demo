@@ -13,7 +13,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  */
 @SpringBootApplication
 @EnableTransactionManagement
-@EnableRedisHttpSession
+@EnableRedisHttpSession(redisNamespace = "demo:session")
 @MapperScan("com.kangyonggan.demo.mapper")
 @PropertySource(value = "classpath:app-${spring.profiles.active}.properties", encoding = "UTF-8")
 public class Application {

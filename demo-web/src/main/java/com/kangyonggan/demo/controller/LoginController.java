@@ -56,6 +56,7 @@ public class LoginController extends BaseController {
 
         // 把登录信息放入session
         session.setAttribute(AppConstants.KEY_SESSION_USER, dbUser);
+        log.info("登录成功,sessionId:{}", session.getId());
         return response;
     }
 

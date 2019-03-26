@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 5/15/18
  */
 @Configuration
-public class MvcConfigure implements WebMvcConfigurer {
+public class MvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
