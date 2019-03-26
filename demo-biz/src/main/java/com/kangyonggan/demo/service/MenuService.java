@@ -18,7 +18,7 @@ public interface MenuService {
      * @param menuCodes
      * @return
      */
-    boolean hasMenu(Long userId, String... menuCodes);
+    boolean hasMenus(Long userId, String... menuCodes);
 
     /**
      * 查找用户菜单

@@ -28,8 +28,8 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     private RoleMapper roleMapper;
 
     @Override
-    public boolean hasRole(Long userId, String roleCode) {
-        return roleMapper.selectExistsUserRoleCode(userId, roleCode);
+    public boolean hasRoles(Long userId, String... roleCodes) {
+        return roleMapper.selectExistsUserRoleCode(userId, roleCodes);
     }
 
     @Override

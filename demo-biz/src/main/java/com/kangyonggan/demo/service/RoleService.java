@@ -1,7 +1,7 @@
 package com.kangyonggan.demo.service;
 
-import com.kangyonggan.demo.model.Role;
 import com.kangyonggan.demo.dto.Params;
+import com.kangyonggan.demo.model.Role;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ public interface RoleService {
      * 判断用户是否拥有某角色
      *
      * @param userId
-     * @param roleCode
+     * @param roleCodes
      * @return
      */
-    boolean hasRole(Long userId, String roleCode);
+    boolean hasRoles(Long userId, String... roleCodes);
 
     /**
      * 查找用户角色

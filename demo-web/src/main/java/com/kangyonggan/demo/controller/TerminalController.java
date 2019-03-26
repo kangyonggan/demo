@@ -1,6 +1,7 @@
 package com.kangyonggan.demo.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.kangyonggan.demo.annotation.PermissionRole;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.model.Role;
 import com.kangyonggan.demo.service.RoleService;
@@ -31,10 +32,14 @@ public class TerminalController extends BaseController {
      * @return
      */
     @GetMapping("test")
+    @PermissionRole("ROLE_ADMIN")
     public Response test() {
         log.info("测试一下");
         List<Role> roles = roleService.searchRoles(getRequestParams());
         PageInfo<Role> pageInfo = new PageInfo<>(roles);
+
+        boolean hasRoles = roleService.hasRoles(1L, "ROLE_ADMIN");
+        log.info("hasRoles:{}", hasRoles);
 
         Response response = Response.getSuccessResponse();
         response.putAll(getQuery());

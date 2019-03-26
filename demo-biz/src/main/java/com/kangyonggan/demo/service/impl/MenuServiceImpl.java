@@ -24,7 +24,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     private MenuMapper menuMapper;
 
     @Override
-    public boolean hasMenu(Long userId, String[] menuCodes) {
+    public boolean hasMenus(Long userId, String[] menuCodes) {
         return menuMapper.selectExistsUserMenuCodes(userId, menuCodes);
     }
 

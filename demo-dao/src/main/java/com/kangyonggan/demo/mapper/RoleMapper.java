@@ -16,10 +16,10 @@ public interface RoleMapper extends MyMapper<Role> {
      * 判断用户是否拥有某角色
      *
      * @param userId
-     * @param roleCode
+     * @param roleCodes
      * @return
      */
-    boolean selectExistsUserRoleCode(@Param("userId") Long userId, @Param("roleCode") String roleCode);
+    boolean selectExistsUserRoleCode(@Param("userId") Long userId, @Param("roleCodes") String[] roleCodes);
 
     /**
      * 删除用户角色

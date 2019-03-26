@@ -18,4 +18,9 @@ public interface AppConstants {
      */
     int SALT_SIZE = 8;
 
+    /**
+     * 用户在session中的key
+     */
+    String KEY_SESSION_USER = "session-user";
+
 }
