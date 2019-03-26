@@ -1,7 +1,7 @@
 package com.kangyonggan.demo.mapper;
 
+import com.kangyonggan.demo.MyMapper;
 import com.kangyonggan.demo.model.Menu;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,7 +10,6 @@ import java.util.List;
  * @author kangyonggan
  * @since 8/8/18
  */
-@Mapper
 public interface MenuMapper extends MyMapper<Menu> {
 
     /**

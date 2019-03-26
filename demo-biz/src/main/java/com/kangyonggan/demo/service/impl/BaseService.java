@@ -1,6 +1,6 @@
 package com.kangyonggan.demo.service.impl;
 
-import com.kangyonggan.demo.mapper.MyMapper;
+import com.kangyonggan.demo.MyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

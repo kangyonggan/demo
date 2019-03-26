@@ -1,4 +1,4 @@
-package com.kangyonggan.demo.mapper;
+package com.kangyonggan.demo;
 
 import tk.mybatis.mapper.common.ConditionMapper;
 import tk.mybatis.mapper.common.ExampleMapper;
