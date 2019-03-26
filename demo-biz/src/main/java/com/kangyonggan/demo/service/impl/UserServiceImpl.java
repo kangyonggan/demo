@@ -11,4 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
+    @Override
+    public User findUserByEmail(String email) {
+        User user = new User();
+        user.setEmail(email);
+        return myMapper.selectOne(user);
+    }
 }

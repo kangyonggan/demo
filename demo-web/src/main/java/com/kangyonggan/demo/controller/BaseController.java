@@ -37,6 +37,15 @@ public class BaseController {
     }
 
     /**
+     * 生成一个成功响应
+     *
+     * @return
+     */
+    protected Response successResponse() {
+        return Response.getSuccessResponse();
+    }
+
+    /**
      * 获取请求IP
      *
      * @return
