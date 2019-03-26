@@ -5,10 +5,8 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author kangyonggan
@@ -74,18 +72,6 @@ public class Menu implements Serializable {
      */
     @Column(name = "updated_time")
     private Date updatedTime;
-
-    /**
-     * 子节点
-     */
-    @Transient
-    List<Menu> leaf;
-
-    /**
-     * 父菜单ID
-     */
-    @Transient
-    private Long pid;
 
     private static final long serialVersionUID = 1L;
 }

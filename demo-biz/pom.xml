@@ -21,6 +21,16 @@
             <artifactId>demo-dao</artifactId>
         </dependency>
 
+        <!--spring-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
         <!--db-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
