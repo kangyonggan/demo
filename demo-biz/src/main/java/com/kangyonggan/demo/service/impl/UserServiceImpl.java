@@ -19,7 +19,7 @@ import java.util.List;
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
     /**
-     * 如果有缓存，则直接返回缓存，否则执行方法体，并缓存方法结果，其中key="user::email:admin@kangyonggan.com"
+     * 如果有缓存，则直接返回缓存，否则执行方法体，并缓存方法结果，其中key="demo:user::email:admin@kangyonggan.com"
      *
      * @param email
      * @return
@@ -33,7 +33,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     /**
-     * 如果有缓存，则直接返回缓存，否则执行方法体，并缓存方法结果，其中key="user::all"
+     * 如果有缓存，则直接返回缓存，否则执行方法体，并缓存方法结果，其中key="demo:user::all"
      *
      * @return
      */
@@ -55,8 +55,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     /**
-     * 清除缓存。key="user::all"
-     * 清除缓存。key="user::email:*"
+     * 清除缓存。key="demo:user::all"
+     * 清除缓存。key="demo:user::email:*"
      *
      * @param user
      */
@@ -68,8 +68,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     /**
-     * 清除缓存。key="user::all"
-     * 清除缓存。key="user::email:*"
+     * 清除缓存。key="demo:user::all"
+     * 清除缓存。key="demo:user::email:*"
      *
      * @param userId
      */

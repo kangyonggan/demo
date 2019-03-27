@@ -22,11 +22,4 @@ public @interface CacheDel {
      */
     String[] value();
 
-    /**
-     * key的前缀
-     *
-     * @return
-     */
-    String prefix() default "";
-
 }
