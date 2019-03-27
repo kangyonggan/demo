@@ -44,8 +44,8 @@ public class LoginController extends BaseController {
     @PostMapping("login")
     @ApiOperation("登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "email", value = "电子邮箱", example = "admin@kangyonggan.com"),
-            @ApiImplicitParam(name = "password", value = "密码", example = "11111111")
+            @ApiImplicitParam(name = "email", value = "电子邮箱", required = true, example = "admin@kangyonggan.com"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, example = "11111111")
     })
     public Response login(@RequestParam String email, @RequestParam String password) {
         Response response = successResponse();
@@ -80,9 +80,6 @@ public class LoginController extends BaseController {
     @GetMapping("logout")
     @ApiOperation("登出")
     public Response logout() {
-        HttpSession session = ParamsInterceptor.getSession();
-        log.info("登出:{}", session.getAttribute(AppConstants.KEY_SESSION_USER));
-        session.removeAttribute(AppConstants.KEY_SESSION_USER);
         return successResponse();
     }
 

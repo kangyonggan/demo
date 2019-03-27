@@ -1,5 +1,7 @@
 package com.kangyonggan.demo.interceptor;
 
+import com.kangyonggan.demo.constants.AppConstants;
+import com.kangyonggan.demo.model.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -51,6 +53,24 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
      */
     public static HttpSession getSession() {
         return currentRequest.get().getSession();
+    }
+
+    /**
+     * 获取token
+     *
+     * @return
+     */
+    public static String getToken() {
+        return currentRequest.get().getHeader(AppConstants.HEADER_TOKEN_NAME);
+    }
+
+    /**
+     * 获取当前用户
+     *
+     * @return
+     */
+    public static User getUser() {
+        return (User) getSession().getAttribute(AppConstants.HEADER_TOKEN_NAME);
     }
 
     /**

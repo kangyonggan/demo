@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * @author kangyonggan
  * @since 2019/3/27 0027
@@ -26,8 +24,8 @@ public class TestController extends BaseController {
     @GetMapping
     @ApiOperation("测试@PermissionLogin")
     public Response test() {
-        HttpServletRequest request = ParamsInterceptor.getRequest();
-        log.info(request.getHeader("x-auth-token"));
+        log.info(ParamsInterceptor.getToken());
+        log.info(ParamsInterceptor.getUser());
         return successResponse();
     }
 

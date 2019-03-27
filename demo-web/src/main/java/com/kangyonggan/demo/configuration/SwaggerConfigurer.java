@@ -1,5 +1,6 @@
 package com.kangyonggan.demo.configuration;
 
+import com.kangyonggan.demo.constants.AppConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,10 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -39,6 +43,11 @@ public class SwaggerConfigurer {
         responseMessageList.add(new ResponseMessageBuilder().code(404).message("资源不存在").build());
         responseMessageList.add(new ResponseMessageBuilder().code(500).message("服务器内部错误").build());
 
+        ParameterBuilder token = new ParameterBuilder();
+        List<Parameter> parameters = new ArrayList<>();
+        token.name(AppConstants.HEADER_TOKEN_NAME).description("令牌").modelRef(new ModelRef("string")).parameterType("header").build();
+        parameters.add(token.build());
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(!"prod".equals(env))
                 .globalResponseMessage(RequestMethod.GET, responseMessageList)
@@ -46,6 +55,7 @@ public class SwaggerConfigurer {
                 .globalResponseMessage(RequestMethod.PUT, responseMessageList)
                 .globalResponseMessage(RequestMethod.DELETE, responseMessageList)
                 .apiInfo(apiInfo())
+                .globalOperationParameters(parameters)
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))

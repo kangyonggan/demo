@@ -19,8 +19,13 @@ public interface AppConstants {
     int SALT_SIZE = 8;
 
     /**
+     * token在header中的名称
+     */
+    String HEADER_TOKEN_NAME = "X-Auth-Token";
+
+    /**
      * 用户在session中的key
      */
-    String KEY_SESSION_USER = "session-user";
+    String KEY_SESSION_USER = "key-session-user";
 
 }
