@@ -1,5 +1,6 @@
 package com.kangyonggan.demo.controller;
 
+import com.kangyonggan.demo.annotation.PermissionLogin;
 import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
@@ -77,9 +78,11 @@ public class LoginController extends BaseController {
      *
      * @return
      */
+    @PermissionLogin
     @GetMapping("logout")
     @ApiOperation("登出")
     public Response logout() {
+        ParamsInterceptor.getSession().invalidate();
         return successResponse();
     }
 

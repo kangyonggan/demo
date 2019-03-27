@@ -122,7 +122,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
      */
     private boolean isLogin(HttpServletResponse response) {
         // 判断是否登录
-        if (StringUtils.isEmpty(ParamsInterceptor.getToken())) {
+        if (!ParamsInterceptor.getSession().getId().equals(ParamsInterceptor.getToken())) {
             // 9998: 登录失效
             Response resp = new Response();
             resp.failure(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());

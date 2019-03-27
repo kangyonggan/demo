@@ -70,7 +70,7 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
      * @return
      */
     public static User getUser() {
-        return (User) getSession().getAttribute(AppConstants.HEADER_TOKEN_NAME);
+        return (User) getSession().getAttribute(AppConstants.KEY_SESSION_USER);
     }
 
     /**

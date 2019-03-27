@@ -25,6 +25,7 @@ public class TestController extends BaseController {
     @ApiOperation("测试@PermissionLogin")
     public Response test() {
         log.info(ParamsInterceptor.getToken());
+        log.info(ParamsInterceptor.getSession().getId());
         log.info(ParamsInterceptor.getUser());
         return successResponse();
     }
