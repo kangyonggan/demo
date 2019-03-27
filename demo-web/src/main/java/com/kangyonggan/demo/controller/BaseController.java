@@ -1,5 +1,6 @@
 package com.kangyonggan.demo.controller;
 
+import com.kangyonggan.demo.constants.Resp;
 import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.Query;
 import com.kangyonggan.demo.dto.Response;
@@ -28,12 +29,13 @@ public class BaseController {
     @ExceptionHandler
     @ResponseBody
     public Response handleException(Exception e) {
+        Response response = new Response();
         if (e != null) {
             log.warn("捕获到异常", e);
-            return Response.getFailureResponse(e.getMessage());
+            return response.failure(e.getMessage());
         }
 
-        return Response.getFailureResponse();
+        return response.failure();
     }
 
     /**
@@ -42,7 +44,10 @@ public class BaseController {
      * @return
      */
     protected Response successResponse() {
-        return Response.getSuccessResponse();
+        Response response = new Response();
+        response.setRespCo(Resp.SUCCESS.getRespCo());
+        response.setRespMsg(Resp.SUCCESS.getRespMsg());
+        return response;
     }
 
     /**

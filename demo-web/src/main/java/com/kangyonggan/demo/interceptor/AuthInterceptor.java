@@ -81,7 +81,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             boolean hasRole = roleService.hasRoles(user.getUserId(), permissionRole.value());
             if (!hasRole) {
                 // 9997: 权限不足
-                Response resp = Response.getFailureResponse(Resp.PERMISSION_DENIED.getRespCo(), Resp.PERMISSION_DENIED.getRespMsg());
+                Response resp = new Response();
+                resp.failure(Resp.PERMISSION_DENIED.getRespCo(), Resp.PERMISSION_DENIED.getRespMsg());
                 writeResponse(response, resp);
                 return false;
             }
@@ -108,7 +109,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             boolean hasMenu = menuService.hasMenus(user.getUserId(), permissionMenu.value());
             if (!hasMenu) {
                 // 9997: 权限不足
-                Response resp = Response.getFailureResponse(Resp.PERMISSION_DENIED.getRespCo(), Resp.PERMISSION_DENIED.getRespMsg());
+                Response resp = new Response();
+                resp.failure(Resp.PERMISSION_DENIED.getRespCo(), Resp.PERMISSION_DENIED.getRespMsg());
                 writeResponse(response, resp);
                 return false;
             }
@@ -127,7 +129,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         // 判断是否登录
         if (session.getAttribute(AppConstants.KEY_SESSION_USER) == null) {
             // 9998: 登录失效
-            Response resp = Response.getFailureResponse(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
+            Response resp = new Response();
+            resp.failure(Resp.INVALID_LOGIN.getRespCo(), Resp.INVALID_LOGIN.getRespMsg());
             writeResponse(response, resp);
             return false;
         }

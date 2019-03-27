@@ -5,6 +5,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -41,6 +42,15 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
      */
     public static HttpServletRequest getRequest() {
         return currentRequest.get();
+    }
+
+    /**
+     * 获取当前会话
+     *
+     * @return 当前请求
+     */
+    public static HttpSession getSession() {
+        return currentRequest.get().getSession();
     }
 
     /**

@@ -15,6 +15,12 @@
     <description>数据模型层</description>
 
     <dependencies>
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+
         <!--other-->
         <dependency>
             <groupId>org.projectlombok</groupId>
