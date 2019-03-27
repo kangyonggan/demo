@@ -7,7 +7,7 @@ Configuration:
       - name: pattern
         value: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%logger{36}.%t:%L] - %msg%n"
       - name: path
-        value: /Users/kyg/logs/demo
+        value: /home/kyg/logs/demo
 
   Appenders:
     RollingFile:
