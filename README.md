@@ -39,6 +39,7 @@ java -jar demo-web/target/demo-web-*.jar
 - Mybatis Generator
 - Redis(Sentinel)
 - Log4j2(yml)
+- Swagger2
 
 ## 内置接口
 - 登录
