@@ -209,6 +209,12 @@ public class RedisService {
         return redisTemplate.opsForHash().hasKey(hash, key);
     }
 
+    /**
+     * get keys of pattern
+     *
+     * @param pattern
+     * @return
+     */
     public Set<String> getKeys(String pattern) {
         return redisTemplate.keys(pattern);
     }

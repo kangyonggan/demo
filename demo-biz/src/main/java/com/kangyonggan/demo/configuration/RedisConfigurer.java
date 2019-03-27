@@ -1,5 +1,6 @@
 package com.kangyonggan.demo.configuration;
 
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -12,6 +13,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @since 2019-03-26
  */
 @Configuration
+@EnableCaching
 public class RedisConfigurer {
 
     @Bean
@@ -23,4 +25,5 @@ public class RedisConfigurer {
 
         return redisTemplate;
     }
+
 }
