@@ -44,6 +44,9 @@
         <mybatis-generator.version>1.3.2</mybatis-generator.version>
         <pagehelper.version>1.2.5</pagehelper.version>
 
+        <!--log4j2 yml-->
+        <jackson-dataformat-yaml.version>2.9.8</jackson-dataformat-yaml.version>
+
         <!--redis session-->
         <spring-session-data-redis.version>2.1.3.RELEASE</spring-session-data-redis.version>
         <spring-session.version>1.3.5.RELEASE</spring-session.version>
@@ -150,6 +153,13 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.version}</version>
+            </dependency>
+
+            <!--log4j2 yml-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${jackson-dataformat-yaml.version}</version>
             </dependency>
 
             <!--redis session-->
