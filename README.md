@@ -15,20 +15,17 @@
 安装过程不在此展开，安装成功后，将IP、端口、密码以及哨兵节点配置到`application-dev.yml`中，prod环境类似。
 
 ## 快速开始
-### 1. 修改配置
-- 修改`log4j2.xml`中的日志路径。然后移动到其他改变列表中不要提交。
-
-### 2. 执行SQL脚本
+### 1. 初始化数据库
 ```
 source schema.sql
 ```
 
-### 3. 打包
+### 2. 编译
 ```
 mvn clean install
 ```
 
-### 4. 运行
+### 3. 运行
 ```
 java -jar demo-web/target/demo-web-*.jar
 ```
@@ -40,8 +37,8 @@ java -jar demo-web/target/demo-web-*.jar
 - Mybatis
 - PageHelper
 - Mybatis Generator
-- Redis Sentinel
-- Log4j2
+- Redis(Sentinel)
+- Log4j2(yml)
 
 ## 内置接口
 - 登录
