@@ -38,6 +38,7 @@ java -jar demo-web/target/demo-web-*.jar
 - PageHelper
 - Mybatis Generator
 - Redis(Sentinel)
+- RabbitMQ
 - Log4j2(yml)
 - Swagger2
 
