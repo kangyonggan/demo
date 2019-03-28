@@ -115,7 +115,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     }
 
     /**
-     * 判断是否登录，没登录就重定向到登录
+     * 判断是否登录
      *
      * @param response
      * @return
