@@ -20,7 +20,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableTransactionManagement
 @EnableRedisHttpSession(redisNamespace = "demo:session")
 @MapperScan("com.kangyonggan.demo.mapper")
-@PropertySource(value = "classpath:app-dev.properties", encoding = "UTF-8")
 public class AbstractTest {
 
     protected Logger logger = LogManager.getLogger(AbstractTest.class);
