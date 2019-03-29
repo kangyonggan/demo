@@ -9,7 +9,6 @@
         <result column="menu_code" property="menuCode" jdbcType="VARCHAR"/>
         <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
         <result column="parent_code" property="parentCode" jdbcType="VARCHAR"/>
-        <result column="url" property="url" jdbcType="VARCHAR"/>
         <result column="sort" property="sort" jdbcType="INTEGER"/>
         <result column="icon" property="icon" jdbcType="VARCHAR"/>
         <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
@@ -44,12 +43,6 @@
       AND rm.role_id = ur.role_id
       AND ur.user_id = #{userId}
       ORDER BY m.sort ASC
-    </select>
-
-    <select id="selectMenusByRoleId" resultMap="BaseResultMap">
-        SELECT m.* FROM tb_menu m, tb_role_menu rm
-        WHERE m.menu_id = rm.menu_id
-        AND rm.role_id = #{roleId}
     </select>
 
 </mapper>

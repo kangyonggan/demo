@@ -5,8 +5,10 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author kangyonggan
@@ -41,11 +43,6 @@ public class Menu implements Serializable {
     private String parentCode;
 
     /**
-     * 菜单地址
-     */
-    private String url;
-
-    /**
      * 菜单排序(从0开始)
      */
     private Integer sort;
@@ -72,6 +69,12 @@ public class Menu implements Serializable {
      */
     @Column(name = "updated_time")
     private Date updatedTime;
+
+    /**
+     * 子菜单
+     */
+    @Transient
+    private List<Menu> children;
 
     private static final long serialVersionUID = 1L;
 }

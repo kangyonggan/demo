@@ -1,9 +1,12 @@
 package com.kangyonggan.demo.controller;
 
+import com.kangyonggan.demo.annotation.PermissionLogin;
 import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
+import com.kangyonggan.demo.model.Menu;
 import com.kangyonggan.demo.model.User;
+import com.kangyonggan.demo.service.MenuService;
 import com.kangyonggan.demo.service.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 处理登录、登出相关请求
@@ -33,6 +37,9 @@ public class LoginController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 登录
@@ -69,6 +76,24 @@ public class LoginController extends BaseController {
         HttpSession session = ParamsInterceptor.getSession();
         session.setAttribute(AppConstants.KEY_SESSION_USER, user);
         log.info("登录成功,sessionId:{}", session.getId());
+        return response;
+    }
+
+    /**
+     * 获取登录数据
+     *
+     * @return
+     */
+    @PermissionLogin
+    @GetMapping("login/data")
+    @ApiOperation("登出")
+    public Response loginData() {
+        Response response = successResponse();
+        User user = ParamsInterceptor.getUser();
+        List<Menu> menus = menuService.findMenusByUserId(user.getUserId());
+
+        response.put("user", user);
+        response.put("menus", menus);
         return response;
     }
 

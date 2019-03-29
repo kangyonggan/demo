@@ -103,8 +103,6 @@ CREATE TABLE tb_menu
     COMMENT '菜单名称',
   parent_code  VARCHAR(32)                           NOT NULL DEFAULT ''
     COMMENT '父菜单代码',
-  url          VARCHAR(128)                          NOT NULL DEFAULT ''
-    COMMENT '菜单地址',
   sort         INT(11)                               NOT NULL DEFAULT 0
     COMMENT '菜单排序(从0开始)',
   icon         VARCHAR(128)                          NOT NULL DEFAULT ''
@@ -180,13 +178,11 @@ VALUES (1, 'ROLE_ADMIN', '管理员');
 --  data for tb_menu
 -- ----------------------------
 INSERT INTO tb_menu
-  (menu_code, menu_name, parent_code, url, sort, icon)
-VALUES ('DASHBOARD', '工作台', '', 'dashboard', 0, 'menu-icon fa fa-dashboard'),
-
-       ('SYSTEM', '系统', '', '', 1, 'menu-icon fa fa-cogs'),
-       ('SYSTEM_USER', '用户管理', 'SYSTEM', 'dashboard/system/user', 0, ''),
-       ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 'dashboard/system/role', 1, ''),
-       ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 'dashboard/system/menu', 2, '');
+  (menu_code, menu_name, parent_code, sort, icon)
+VALUES ('SYSTEM', '系统', '', 1, 'gear-b'),
+       ('SYSTEM_USER', '用户管理', 'SYSTEM', 0, ''),
+       ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 1, ''),
+       ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 2, '');
 
 -- ----------------------------
 --  data for tb_user_role
