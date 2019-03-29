@@ -1,11 +1,13 @@
 package com.kangyonggan.demo.configuration;
 
+import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.interceptor.AuthInterceptor;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
 import com.kangyonggan.demo.service.MenuService;
 import com.kangyonggan.demo.service.RoleService;
 import com.kangyonggan.demo.util.SpringUtils;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,6 +18,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MvcConfigurer implements WebMvcConfigurer {
 
+    /**
+     * 允许跨域
+     *
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").exposedHeaders(AppConstants.HEADER_TOKEN_NAME);
+    }
+
+    /**
+     * 添加自定义拦截器
+     *
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         RoleService roleService = SpringUtils.getBean(RoleService.class);
