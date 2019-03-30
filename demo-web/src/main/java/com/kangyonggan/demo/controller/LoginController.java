@@ -86,7 +86,7 @@ public class LoginController extends BaseController {
      */
     @PermissionLogin
     @GetMapping("login/data")
-    @ApiOperation("登出")
+    @ApiOperation("获取登录数据")
     public Response loginData() {
         Response response = successResponse();
         User user = ParamsInterceptor.getUser();
