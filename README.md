@@ -14,9 +14,6 @@
 ### 4. 安装Redis(哨兵)
 安装过程不在此展开，安装成功后，将IP、端口、密码以及哨兵节点配置到`application-dev.yml`中，prod环境类似。
 
-### 5. 安装RabbitMQ
-安装过程不在此展开，安装成功后，将IP、端口、用户名和密码配置到`application-dev.yml`中，prod环境类似。
-
 ## 快速开始
 ### 1. 初始化数据库
 ```
@@ -41,7 +38,6 @@ java -jar demo-web/target/demo-web-*.jar
 - PageHelper
 - Mybatis Generator
 - Redis(Sentinel)
-- RabbitMQ
 - Log4j2(yml)
 - Swagger2
 

@@ -21,7 +21,7 @@ public interface AppConstants {
     /**
      * token在header中的名称
      */
-    String HEADER_TOKEN_NAME = "X-Auth-Token";
+    String HEADER_TOKEN_NAME = "x-auth-token";
 
     /**
      * 用户在session中的key
