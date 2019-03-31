@@ -13,10 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kangyonggan
@@ -30,6 +27,12 @@ public class ValidateController extends BaseController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 密码校验
+     * 
+     * @param password
+     * @return
+     */
     @PostMapping("password")
     @ApiOperation("密码校验")
     @ApiImplicitParams({
@@ -44,6 +47,26 @@ public class ValidateController extends BaseController {
         String targetPassword = Encodes.encodeHex(hashPassword);
         if (!user.getPassword().equals(targetPassword)) {
             return response.failure("密码错误");
+        }
+        return response;
+    }
+
+    /**
+     * 邮箱校验
+     * 
+     * @param email
+     * @return
+     */
+    @GetMapping("email")
+    @ApiOperation("邮箱校验")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "电子邮箱", required = true, example = "admin@kangyonggan.com")
+    })
+    @PermissionLogin
+    public Response validEmail(@RequestParam String email) {
+        Response response = successResponse();
+        if (userService.existsEmail(email)) {
+            return response.failure("邮箱已存在");
         }
         return response;
     }

@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,6 +61,34 @@ public class SystemUserController extends BaseController {
         user.setUserId(userId);
         user.setIsDeleted(isDeleted);
 
+        userService.updateUser(user);
+        return successResponse();
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping
+    @ApiOperation("保存用户")
+    @PermissionMenu("SYSTEM_USER")
+    public Response save(User user) {
+        userService.saveUser(user);
+        return successResponse();
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param user
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("更新用户")
+    @PermissionMenu("SYSTEM_USER")
+    public Response update(User user) {
         userService.updateUser(user);
         return successResponse();
     }

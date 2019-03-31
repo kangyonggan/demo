@@ -3,11 +3,13 @@ package com.kangyonggan.demo.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.demo.annotation.CacheDel;
 import com.kangyonggan.demo.annotation.MethodLog;
-import com.kangyonggan.demo.constants.YesNo;
+import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.Query;
 import com.kangyonggan.demo.model.User;
 import com.kangyonggan.demo.service.UserService;
+import com.kangyonggan.demo.util.Digests;
+import com.kangyonggan.demo.util.Encodes;
 import com.kangyonggan.demo.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheConfig;
@@ -69,7 +71,37 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @MethodLog
     @CacheDel("demo:user::email:*")
     public void updateUser(User user) {
+        if (StringUtils.isNotEmpty(user.getPassword())) {
+            entryptPassword(user);
+        }
         myMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public boolean existsEmail(String email) {
+        User user = new User();
+        user.setEmail(email);
+        return super.exists(user);
+    }
+
+    @Override
+    @MethodLog
+    public void saveUser(User user) {
+        entryptPassword(user);
+        myMapper.insertSelective(user);
+    }
+
+    /**
+     * 设定安全的密码，生成随机的salt并经过N次 sha-1 hash
+     *
+     * @param user
+     */
+    private void entryptPassword(User user) {
+        byte[] salt = Digests.generateSalt(AppConstants.SALT_SIZE);
+        user.setSalt(Encodes.encodeHex(salt));
+
+        byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), salt, AppConstants.HASH_INTERATIONS);
+        user.setPassword(Encodes.encodeHex(hashPassword));
     }
 
 }
