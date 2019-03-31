@@ -31,8 +31,9 @@ public interface UserService {
      * 更新用户
      *
      * @param user
+     * @param roleIds
      */
-    void updateUser(User user);
+    void updateUser(User user, String[] roleIds);
 
     /**
      * 校验邮箱是否存在

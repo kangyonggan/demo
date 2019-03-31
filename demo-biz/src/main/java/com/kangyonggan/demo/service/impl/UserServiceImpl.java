@@ -1,20 +1,22 @@
 package com.kangyonggan.demo.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.kangyonggan.demo.annotation.CacheDel;
 import com.kangyonggan.demo.annotation.MethodLog;
 import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.Query;
+import com.kangyonggan.demo.mapper.UserMapper;
 import com.kangyonggan.demo.model.User;
+import com.kangyonggan.demo.service.RoleService;
 import com.kangyonggan.demo.service.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
 import com.kangyonggan.demo.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -28,8 +30,13 @@ import java.util.List;
 @CacheConfig(cacheNames = "demo:user")
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private RoleService roleService;
+
     @Override
-    @Cacheable(key = "'email:' + #email")
     public User findUserByEmail(String email) {
         User user = new User();
         user.setEmail(email);
@@ -69,12 +76,21 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @MethodLog
-    @CacheDel("demo:user::email:*")
-    public void updateUser(User user) {
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUser(User user, String[] roleIds) {
         if (StringUtils.isNotEmpty(user.getPassword())) {
             entryptPassword(user);
+        } else {
+            updateUserRoles(user.getUserId(), roleIds);
         }
         myMapper.updateByPrimaryKeySelective(user);
+    }
+
+    private void updateUserRoles(Long userId, String[] roleIds) {
+        roleService.deleteAllRolesByUserId(userId);
+        if (roleIds != null && roleIds.length > 0) {
+            userMapper.insertUserRoles(userId, roleIds);
+        }
     }
 
     @Override
@@ -93,7 +109,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @MethodLog
-    @CacheDel("demo:user::email:*")
     public void deleteUser(Long userId) {
         myMapper.deleteByPrimaryKey(userId);
     }

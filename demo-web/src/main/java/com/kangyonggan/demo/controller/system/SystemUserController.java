@@ -4,7 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.kangyonggan.demo.annotation.PermissionMenu;
 import com.kangyonggan.demo.controller.BaseController;
 import com.kangyonggan.demo.dto.Response;
+import com.kangyonggan.demo.model.Role;
 import com.kangyonggan.demo.model.User;
+import com.kangyonggan.demo.service.RoleService;
 import com.kangyonggan.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,6 +28,9 @@ public class SystemUserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 查询用户列表
@@ -76,21 +81,45 @@ public class SystemUserController extends BaseController {
     }
 
     /**
+     * 获取角色
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("{userId:[\\d]+}/role")
+    @ApiOperation("获取角色")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1")
+    })
+    @PermissionMenu("SYSTEM_USER")
+    public Response role(@PathVariable Long userId) {
+        Response response = successResponse();
+        List<Role> allRoles = roleService.findAllRoles();
+        List<Role> userRoles = roleService.findRolesByUserId(userId);
+
+        response.put("allRoles", allRoles);
+        response.put("userRoles", userRoles);
+        return response;
+    }
+
+    /**
      * 更新用户
      *
      * @param userId
      * @param user
+     * @param roleIds
      * @return
      */
     @PutMapping("{userId:[\\d]+}")
     @ApiOperation("更新用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1")
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1"),
+            @ApiImplicitParam(name = "roleIds", value = "角色ID", required = false, example = "[\"1\"]")
     })
     @PermissionMenu("SYSTEM_USER")
-    public Response update(@PathVariable Long userId, User user) {
+    public Response update(@PathVariable Long userId, User user, @RequestParam(value = "roleIds", required = false) String[] roleIds) {
         user.setUserId(userId);
-        userService.updateUser(user);
+        userService.updateUser(user, roleIds);
         return successResponse();
     }
 
