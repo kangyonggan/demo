@@ -91,6 +91,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
         myMapper.insertSelective(user);
     }
 
+    @Override
+    @MethodLog
+    @CacheDel("demo:user::email:*")
+    public void deleteUser(Long userId) {
+        myMapper.deleteByPrimaryKey(userId);
+    }
+
     /**
      * 设定安全的密码，生成随机的salt并经过N次 sha-1 hash
      *

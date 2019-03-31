@@ -45,7 +45,7 @@ public class SwaggerConfigurer {
 
         ParameterBuilder token = new ParameterBuilder();
         List<Parameter> parameters = new ArrayList<>();
-        token.name(AppConstants.HEADER_TOKEN_NAME).description("令牌").modelRef(new ModelRef("string")).parameterType("header").build();
+        token.name(AppConstants.HEADER_TOKEN_NAME).description("令牌（只有登录接口不是必填）").modelRef(new ModelRef("string")).parameterType("header").build();
         parameters.add(token.build());
 
         return new Docket(DocumentationType.SWAGGER_2)

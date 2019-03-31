@@ -45,23 +45,19 @@ public class SystemUserController extends BaseController {
     }
 
     /**
-     * 删除/恢复用户
+     * 删除用户
      *
+     * @param userId
      * @return
      */
-    @GetMapping("{userId:[\\d]+}/delete/{isDeleted:\\b0\\b|\\b1\\b}")
-    @ApiOperation("删除/恢复用户")
+    @DeleteMapping("{userId:[\\d]+}")
+    @ApiOperation("删除用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1"),
-            @ApiImplicitParam(name = "isDeleted", value = "是否删除（1：删除，0:恢复）", required = true, example = "1")
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1")
     })
     @PermissionMenu("SYSTEM_USER")
-    public Response delete(@PathVariable Long userId, @PathVariable byte isDeleted) {
-        User user = new User();
-        user.setUserId(userId);
-        user.setIsDeleted(isDeleted);
-
-        userService.updateUser(user);
+    public Response delete(@PathVariable Long userId) {
+        userService.deleteUser(userId);
         return successResponse();
     }
 
@@ -82,13 +78,18 @@ public class SystemUserController extends BaseController {
     /**
      * 更新用户
      *
+     * @param userId
      * @param user
      * @return
      */
-    @PutMapping
+    @PutMapping("{userId:[\\d]+}")
     @ApiOperation("更新用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, example = "1")
+    })
     @PermissionMenu("SYSTEM_USER")
-    public Response update(User user) {
+    public Response update(@PathVariable Long userId, User user) {
+        user.setUserId(userId);
         userService.updateUser(user);
         return successResponse();
     }

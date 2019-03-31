@@ -23,7 +23,7 @@ public class User implements Serializable {
      */
     @Id
     @Column(name = "user_id")
-    @ApiModelProperty(value = "用户ID（更新用户时必填）", required = false, example = "1")
+    @ApiModelProperty(hidden = true)
     private Long userId;
 
     /**
@@ -48,7 +48,7 @@ public class User implements Serializable {
      * 逻辑删除
      */
     @Column(name = "is_deleted")
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "逻辑删除", required = false, example = "0")
     private Byte isDeleted;
 
     /**
