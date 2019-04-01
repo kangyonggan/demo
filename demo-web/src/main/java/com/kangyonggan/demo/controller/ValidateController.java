@@ -5,6 +5,7 @@ import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
 import com.kangyonggan.demo.model.User;
+import com.kangyonggan.demo.service.RoleService;
 import com.kangyonggan.demo.service.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
@@ -27,9 +28,12 @@ public class ValidateController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     /**
      * 密码校验
-     * 
+     *
      * @param password
      * @return
      */
@@ -53,7 +57,7 @@ public class ValidateController extends BaseController {
 
     /**
      * 邮箱校验
-     * 
+     *
      * @param email
      * @return
      */
@@ -67,6 +71,26 @@ public class ValidateController extends BaseController {
         Response response = successResponse();
         if (userService.existsEmail(email)) {
             return response.failure("邮箱已存在");
+        }
+        return response;
+    }
+
+    /**
+     * 角色代码校验
+     *
+     * @param roleCode
+     * @return
+     */
+    @GetMapping("role")
+    @ApiOperation("角色代码校验")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleCode", value = "角色代码", required = true, example = "ROLE_TEST")
+    })
+    @PermissionLogin
+    public Response validRole(@RequestParam String roleCode) {
+        Response response = successResponse();
+        if (roleService.existsRoleCode(roleCode)) {
+            return response.failure("角色代码已存在");
         }
         return response;
     }
