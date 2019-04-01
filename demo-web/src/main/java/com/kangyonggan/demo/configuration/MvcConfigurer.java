@@ -25,7 +25,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("GET", "POST", "DELETE", "PUT").exposedHeaders(AppConstants.HEADER_TOKEN_NAME);
+        registry.addMapping("/**").allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS").exposedHeaders(AppConstants.HEADER_TOKEN_NAME);
     }
 
     /**

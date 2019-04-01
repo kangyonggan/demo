@@ -158,6 +158,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
      */
     public static void writeResponse(HttpServletResponse response, Response resp) {
         response.setCharacterEncoding("UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
