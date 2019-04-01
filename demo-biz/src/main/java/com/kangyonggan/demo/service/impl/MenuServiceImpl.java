@@ -7,6 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,25 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         List<Menu> menus = menuMapper.selectMenusByUserId(userId);
 
         return recursionList(menus, new ArrayList<>(), StringUtils.EMPTY);
+    }
+
+    @Override
+    public List<Menu> findAllMenus() {
+        Example example = new Example(Menu.class);
+        example.setOrderByClause("sort ASC");
+        List<Menu> menus = menuMapper.selectByExample(example);
+
+        return recursionList(menus, new ArrayList<>(), StringUtils.EMPTY);
+    }
+
+    @Override
+    public List<Menu> findMenusByRoleId(Long roleId) {
+        return menuMapper.selectMenusByRoleId(roleId);
+    }
+
+    @Override
+    public void deleteAllMenusByRoleId(Long roleId) {
+        menuMapper.deleteAllMenusByRoleId(roleId);
     }
 
     /**

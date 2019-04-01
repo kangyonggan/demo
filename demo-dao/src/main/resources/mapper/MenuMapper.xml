@@ -17,20 +17,20 @@
     </resultMap>
 
     <select id="selectExistsUserMenuCodes" resultType="Boolean">
-      SELECT exists(
+        SELECT exists(
         SELECT
-          m.menu_code
+        m.menu_code
         FROM
-          tb_user_role ur, tb_role_menu rm, tb_menu m
+        tb_user_role ur, tb_role_menu rm, tb_menu m
         WHERE
-          ur.user_id = #{userId}
-          AND ur.role_id = rm.role_id
-          AND rm.menu_id = m.menu_id
-          AND m.menu_code IN 
-          <foreach collection="menuCodes" item="menuCode" open="(" close=")" separator=",">
+        ur.user_id = #{userId}
+        AND ur.role_id = rm.role_id
+        AND rm.menu_id = m.menu_id
+        AND m.menu_code IN
+        <foreach collection="menuCodes" item="menuCode" open="(" close=")" separator=",">
             #{menuCode}
-          </foreach>
-      )
+        </foreach>
+        )
     </select>
 
     <select id="selectMenusByUserId" resultMap="BaseResultMap">
@@ -43,6 +43,21 @@
       AND rm.role_id = ur.role_id
       AND ur.user_id = #{userId}
       ORDER BY m.sort ASC
+    </select>
+
+    <select id="selectMenusByRoleId" resultMap="BaseResultMap">
+      SELECT
+        m.*
+      FROM
+        tb_menu m, tb_role_menu rm
+      WHERE
+        m.menu_id = rm.menu_id
+      AND rm.role_id = #{roleId}
+      ORDER BY m.sort ASC
+    </select>
+
+    <select id="deleteAllMenusByRoleId">
+        DELETE FROM tb_role_menu WHERE role_id = #{roleId}
     </select>
 
 </mapper>

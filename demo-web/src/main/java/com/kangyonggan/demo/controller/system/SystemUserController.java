@@ -8,6 +8,7 @@ import com.kangyonggan.demo.model.Role;
 import com.kangyonggan.demo.model.User;
 import com.kangyonggan.demo.service.RoleService;
 import com.kangyonggan.demo.service.UserService;
+import com.kangyonggan.demo.util.Collections3;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -95,7 +96,7 @@ public class SystemUserController extends BaseController {
     public Response role(@PathVariable Long userId) {
         Response response = successResponse();
         List<Role> allRoles = roleService.findAllRoles();
-        List<Role> userRoles = roleService.findRolesByUserId(userId);
+        List<String> userRoles = Collections3.extractToList(roleService.findRolesByUserId(userId), "roleId");
 
         response.put("allRoles", allRoles);
         response.put("userRoles", userRoles);

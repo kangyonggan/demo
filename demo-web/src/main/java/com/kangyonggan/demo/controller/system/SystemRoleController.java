@@ -1,11 +1,15 @@
 package com.kangyonggan.demo.controller.system;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Collections2;
 import com.kangyonggan.demo.annotation.PermissionMenu;
 import com.kangyonggan.demo.controller.BaseController;
 import com.kangyonggan.demo.dto.Response;
+import com.kangyonggan.demo.model.Menu;
 import com.kangyonggan.demo.model.Role;
+import com.kangyonggan.demo.service.MenuService;
 import com.kangyonggan.demo.service.RoleService;
+import com.kangyonggan.demo.util.Collections3;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,6 +30,9 @@ public class SystemRoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 查询角色列表
@@ -76,21 +83,45 @@ public class SystemRoleController extends BaseController {
     }
 
     /**
+     * 获取菜单
+     *
+     * @param roleId
+     * @return
+     */
+    @GetMapping("{roleId:[\\d]+}/menu")
+    @ApiOperation("获取菜单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, example = "1")
+    })
+    @PermissionMenu("SYSTEM_USER")
+    public Response menu(@PathVariable Long roleId) {
+        Response response = successResponse();
+        List<Menu> allMenus = menuService.findAllMenus();
+        List<String> roleMenus = Collections3.extractToList(menuService.findMenusByRoleId(roleId), "menuId");
+
+        response.put("allMenus", allMenus);
+        response.put("roleMenus", roleMenus);
+        return response;
+    }
+
+    /**
      * 更新角色
      *
      * @param roleId
      * @param role
+     * @param menuIds
      * @return
      */
     @PutMapping("{roleId:[\\d]+}")
     @ApiOperation("更新角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, example = "1")
+            @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, example = "1"),
+            @ApiImplicitParam(name = "menuIds", value = "菜单ID", required = false, example = "[\"1\"]")
     })
     @PermissionMenu("SYSTEM_ROLE")
-    public Response update(@PathVariable Long roleId, Role role) {
+    public Response update(@PathVariable Long roleId, Role role, @RequestParam(value = "menuIds", required = false) String[] menuIds) {
         role.setRoleId(roleId);
-        roleService.updateRole(role);
+        roleService.updateRole(role, menuIds);
         return successResponse();
     }
 

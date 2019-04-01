@@ -7,11 +7,13 @@ import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.Query;
 import com.kangyonggan.demo.mapper.RoleMapper;
 import com.kangyonggan.demo.model.Role;
+import com.kangyonggan.demo.service.MenuService;
 import com.kangyonggan.demo.service.RoleService;
 import com.kangyonggan.demo.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -26,6 +28,9 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public boolean hasRoles(Long userId, String... roleCodes) {
@@ -99,8 +104,19 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     @MethodLog
-    public void updateRole(Role role) {
+    @Transactional(rollbackFor = Exception.class)
+    public void updateRole(Role role, String[] menuIds) {
         myMapper.updateByPrimaryKeySelective(role);
+
+        updateRoleMenus(role.getRoleId(), menuIds);
+    }
+
+
+    private void updateRoleMenus(Long roleId, String[] menuIds) {
+        menuService.deleteAllMenusByRoleId(roleId);
+        if (menuIds != null && menuIds.length > 0) {
+            roleMapper.insertRoleMenus(roleId, menuIds);
+        }
     }
 
     @Override

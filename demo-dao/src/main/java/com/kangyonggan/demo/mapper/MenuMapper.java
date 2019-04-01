@@ -28,4 +28,19 @@ public interface MenuMapper extends MyMapper<Menu> {
      * @return
      */
     List<Menu> selectMenusByUserId(Long userId);
+
+    /**
+     * 查找角色菜单
+     *
+     * @param roleId
+     * @return
+     */
+    List<Menu> selectMenusByRoleId(Long roleId);
+
+    /**
+     * 删除角色所有菜单
+     *
+     * @param roleId
+     */
+    void deleteAllMenusByRoleId(Long roleId);
 }

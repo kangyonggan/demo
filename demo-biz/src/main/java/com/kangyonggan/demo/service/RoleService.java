@@ -68,8 +68,9 @@ public interface RoleService {
      * 更新角色
      *
      * @param role
+     * @param menuIds
      */
-    void updateRole(Role role);
+    void updateRole(Role role, String[] menuIds);
 
     /**
      * 判断角色代码是否存在

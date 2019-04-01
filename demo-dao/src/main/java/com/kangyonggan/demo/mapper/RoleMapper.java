@@ -35,4 +35,12 @@ public interface RoleMapper extends MyMapper<Role> {
      * @return
      */
     List<Role> selectRolesByUserId(@Param("userId") Long userId);
+
+    /**
+     * 添加角色菜单
+     *
+     * @param roleId
+     * @param menuIds
+     */
+    void insertRoleMenus(@Param("roleId") Long roleId, @Param("menuIds") String[] menuIds);
 }

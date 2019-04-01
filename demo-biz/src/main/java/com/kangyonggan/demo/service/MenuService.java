@@ -27,4 +27,27 @@ public interface MenuService {
      * @return
      */
     List<Menu> findMenusByUserId(Long userId);
+
+    /**
+     * 查询全部菜单
+     *
+     * @return
+     */
+    List<Menu> findAllMenus();
+
+    /**
+     * 获取角色菜单
+     *
+     * @param roleId
+     * @return
+     */
+    List<Menu> findMenusByRoleId(Long roleId);
+
+    /**
+     * 删除角色所有菜单
+     *
+     * @param roleId
+     */
+    void deleteAllMenusByRoleId(Long roleId);
+
 }
