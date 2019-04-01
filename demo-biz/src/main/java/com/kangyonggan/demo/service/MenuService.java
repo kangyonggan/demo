@@ -50,4 +50,24 @@ public interface MenuService {
      */
     void deleteAllMenusByRoleId(Long roleId);
 
+    /**
+     * 删除菜单
+     *
+     * @param menuId
+     */
+    void deleteMenu(Long menuId);
+
+    /**
+     * 保存菜单
+     *
+     * @param menu
+     */
+    void saveMenu(Menu menu);
+
+    /**
+     * 更新菜单
+     *
+     * @param menu
+     */
+    void updateMenu(Menu menu);
 }

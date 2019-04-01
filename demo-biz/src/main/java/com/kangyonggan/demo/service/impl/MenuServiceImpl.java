@@ -1,5 +1,6 @@
 package com.kangyonggan.demo.service.impl;
 
+import com.kangyonggan.demo.annotation.MethodLog;
 import com.kangyonggan.demo.mapper.MenuMapper;
 import com.kangyonggan.demo.model.Menu;
 import com.kangyonggan.demo.service.MenuService;
@@ -51,6 +52,24 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     @Override
     public void deleteAllMenusByRoleId(Long roleId) {
         menuMapper.deleteAllMenusByRoleId(roleId);
+    }
+
+    @Override
+    @MethodLog
+    public void deleteMenu(Long menuId) {
+        myMapper.deleteByPrimaryKey(menuId);
+    }
+
+    @Override
+    @MethodLog
+    public void saveMenu(Menu menu) {
+        myMapper.insertSelective(menu);
+    }
+
+    @Override
+    @MethodLog
+    public void updateMenu(Menu menu) {
+        myMapper.updateByPrimaryKeySelective(menu);
     }
 
     /**
