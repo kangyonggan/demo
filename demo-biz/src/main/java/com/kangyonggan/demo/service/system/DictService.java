@@ -48,4 +48,21 @@ public interface DictService {
      * @return
      */
     boolean existsDictCode(String dictType, String dictCode);
+
+    /**
+     * 根据字典类型查找字典
+     *
+     * @param dictType
+     * @return
+     */
+    List<Dict> findDictsByDictType(String dictType);
+
+    /**
+     * 查找字典
+     *
+     * @param dictType
+     * @param dictCode
+     * @return
+     */
+    Dict findDictByTypeAndCode(String dictType, String dictCode);
 }
