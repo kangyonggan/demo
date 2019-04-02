@@ -15,12 +15,7 @@ public enum DictType {
     /**
      * 证件类型
      */
-    ID_TYPE("ID_TYPE", "证件类型"),
-
-    /**
-     * 币种
-     */
-    CUR_CO("CUR_CO", "币种");
+    ID_TYPE("ID_TYPE", "证件类型");
 
 
     /**

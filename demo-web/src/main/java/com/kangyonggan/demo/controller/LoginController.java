@@ -3,6 +3,7 @@ package com.kangyonggan.demo.controller;
 import com.kangyonggan.demo.annotation.PermissionLogin;
 import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Response;
+import com.kangyonggan.demo.dto.UserDto;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
 import com.kangyonggan.demo.model.Menu;
 import com.kangyonggan.demo.model.User;
@@ -89,7 +90,7 @@ public class LoginController extends BaseController {
     @ApiOperation("获取登录数据")
     public Response loginData() {
         Response response = successResponse();
-        User user = ParamsInterceptor.getUser();
+        UserDto user = userService.findUserProfileById(ParamsInterceptor.getUser().getUserId());
         List<Menu> menus = menuService.findMenusByUserId(user.getUserId());
 
         response.put("user", user);

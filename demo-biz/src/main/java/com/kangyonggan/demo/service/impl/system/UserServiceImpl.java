@@ -5,10 +5,12 @@ import com.kangyonggan.demo.annotation.MethodLog;
 import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.Query;
+import com.kangyonggan.demo.dto.UserDto;
 import com.kangyonggan.demo.mapper.UserMapper;
 import com.kangyonggan.demo.model.User;
 import com.kangyonggan.demo.service.BaseService;
 import com.kangyonggan.demo.service.system.RoleService;
+import com.kangyonggan.demo.service.system.UserProfileService;
 import com.kangyonggan.demo.service.system.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
@@ -36,6 +38,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private UserProfileService userProfileService;
 
     @Override
     public User findUserByEmail(String email) {
@@ -112,6 +117,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @MethodLog
     public void deleteUser(Long userId) {
         myMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
+    @MethodLog
+    public UserDto findUserProfileById(Long userId) {
+        return userMapper.selectUserProfileById(userId);
     }
 
     /**

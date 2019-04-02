@@ -14,6 +14,10 @@
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <resultMap id="UserDtoResultMap" type="com.kangyonggan.demo.dto.UserDto"
+               extends="com.kangyonggan.demo.mapper.UserProfileMapper.BaseResultMap">
+    </resultMap>
+
     <insert id="insertUserRoles">
         INSERT INTO tb_user_role (user_id, role_id)
         VALUES
@@ -21,4 +25,14 @@
             (#{userId}, #{roleId})
         </foreach>
     </insert>
+
+    <select id="selectUserProfileById" resultMap="UserDtoResultMap">
+      SELECT
+          u.user_id, u.email, up.name, up.id_type, up.id_no, up.ip_address, u.created_time, u.is_deleted
+        FROM
+          tb_user u, tb_user_profile up
+        WHERE
+          u.user_id = up.user_id
+          AND u.user_id = #{userId}
+    </select>
 </mapper>

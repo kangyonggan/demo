@@ -11,6 +11,7 @@ import com.kangyonggan.demo.service.system.RoleService;
 import com.kangyonggan.demo.service.system.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
+import com.kangyonggan.demo.util.IdNoUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -140,6 +141,27 @@ public class ValidateController extends BaseController {
         Response response = successResponse();
         if (dictService.existsDictCode(dictType, dictCode)) {
             return response.failure("字典代码已存在");
+        }
+        return response;
+    }
+
+    /**
+     * 证件号码校验
+     *
+     * @param idNo
+     * @return
+     */
+    @GetMapping("idNo")
+    @ApiOperation("证件号码校验")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "idNo", value = "证件号码", required = true, example = "35020319690428071X")
+    })
+    @PermissionLogin
+    public Response validIdNo(@RequestParam String idNo) {
+        Response response = successResponse();
+
+        if (!IdNoUtil.isIdCard(idNo)) {
+            return response.failure("证件号码不合法");
         }
         return response;
     }

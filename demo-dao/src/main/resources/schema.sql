@@ -210,13 +210,13 @@ VALUES (1, 'ROLE_ADMIN', '管理员');
 -- ----------------------------
 INSERT INTO tb_menu
   (menu_code, menu_name, parent_code, sort, icon)
-VALUES ('SYSTEM', '系统', '', 0, 'gear-b'),
+VALUES ('SYSTEM', '系统', '', 0, 'ios-cog'),
        ('SYSTEM_USER', '用户管理', 'SYSTEM', 0, ''),
        ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 1, ''),
        ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 2, ''),
        ('SYSTEM_DICT', '数据字典', 'SYSTEM', 3, ''),
 
-       ('USER', '我的', '', 1, 'user'),
+       ('USER', '我的', '', 1, 'ios-person'),
        ('USER_PROFILE', '个人资料', 'USER', 0, '');
 
 -- ----------------------------
@@ -232,3 +232,10 @@ INSERT INTO tb_role_menu
 SELECT 1,
        menu_id
 FROM tb_menu;
+
+-- ----------------------------
+--  data for tb_dict
+-- ----------------------------
+INSERT INTO tb_dict
+  (dict_type, dict_code, value, sort)
+VALUES ('ID_TYPE', '0', '身份证', 0);

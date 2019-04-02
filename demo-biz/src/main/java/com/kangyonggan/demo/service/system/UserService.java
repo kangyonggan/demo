@@ -1,6 +1,7 @@
 package com.kangyonggan.demo.service.system;
 
 import com.kangyonggan.demo.dto.Params;
+import com.kangyonggan.demo.dto.UserDto;
 import com.kangyonggan.demo.model.User;
 
 import java.util.List;
@@ -56,4 +57,12 @@ public interface UserService {
      * @param userId
      */
     void deleteUser(Long userId);
+
+    /**
+     * 查找用户信息
+     *
+     * @param userId
+     * @return
+     */
+    UserDto findUserProfileById(Long userId);
 }

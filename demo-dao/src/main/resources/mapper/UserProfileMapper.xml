@@ -10,7 +10,6 @@
         <result column="id_type" property="idType" jdbcType="VARCHAR"/>
         <result column="id_no" property="idNo" jdbcType="VARCHAR"/>
         <result column="ip_address" property="ipAddress" jdbcType="VARCHAR"/>
-        <result column="skin" property="skin" jdbcType="VARCHAR"/>
         <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
         <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
