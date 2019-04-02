@@ -77,7 +77,7 @@ public class SystemUserController extends BaseController {
     @ApiOperation("保存用户")
     @PermissionMenu("SYSTEM_USER")
     public Response save(User user) {
-        userService.saveUser(user);
+        userService.saveUser(user, getIpAddress());
         return successResponse();
     }
 

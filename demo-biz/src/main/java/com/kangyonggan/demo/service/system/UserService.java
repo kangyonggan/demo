@@ -48,8 +48,9 @@ public interface UserService {
      * 保存用户
      *
      * @param user
+     * @param ipAddress
      */
-    void saveUser(User user);
+    void saveUser(User user, String ipAddress);
 
     /**
      * 删除用户

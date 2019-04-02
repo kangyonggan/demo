@@ -8,6 +8,7 @@ import com.kangyonggan.demo.dto.Query;
 import com.kangyonggan.demo.dto.UserDto;
 import com.kangyonggan.demo.mapper.UserMapper;
 import com.kangyonggan.demo.model.User;
+import com.kangyonggan.demo.model.UserProfile;
 import com.kangyonggan.demo.service.BaseService;
 import com.kangyonggan.demo.service.system.RoleService;
 import com.kangyonggan.demo.service.system.UserProfileService;
@@ -108,9 +109,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Override
     @MethodLog
-    public void saveUser(User user) {
+    @Transactional(rollbackFor = Exception.class)
+    public void saveUser(User user, String ipAddress) {
         entryptPassword(user);
         myMapper.insertSelective(user);
+
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(user.getUserId());
+        userProfile.setIpAddress(ipAddress);
+        userProfile.setName(user.getEmail().substring(0, user.getEmail().indexOf("@")));
+        userProfileService.saveUserProfile(userProfile);
     }
 
     @Override

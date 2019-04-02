@@ -22,4 +22,10 @@ public class UserProfileServiceImpl extends BaseService<UserProfile> implements 
 
         myMapper.updateByExampleSelective(userProfile, example);
     }
+
+    @Override
+    @MethodLog
+    public void saveUserProfile(UserProfile userProfile) {
+        myMapper.insertSelective(userProfile);
+    }
 }

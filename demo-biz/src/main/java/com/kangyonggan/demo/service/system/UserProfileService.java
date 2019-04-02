@@ -14,4 +14,12 @@ public interface UserProfileService {
      * @param userProfile
      */
     void updateUserProfile(UserProfile userProfile);
+
+    /**
+     * 保存用户信息
+     *
+     * @param userProfile
+     */
+    void saveUserProfile(UserProfile userProfile);
+
 }
