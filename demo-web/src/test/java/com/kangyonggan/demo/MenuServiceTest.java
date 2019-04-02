@@ -1,7 +1,7 @@
 package com.kangyonggan.demo;
 
 import com.kangyonggan.demo.model.Menu;
-import com.kangyonggan.demo.service.MenuService;
+import com.kangyonggan.demo.service.system.MenuService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

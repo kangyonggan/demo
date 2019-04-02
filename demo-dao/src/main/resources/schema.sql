@@ -152,6 +152,37 @@ CREATE TABLE tb_role_menu
 )
   COMMENT '角色菜单表';
 
+-- ----------------------------
+--  Table structure for tb_dict
+-- ----------------------------
+DROP TABLE
+  IF EXISTS tb_dict;
+
+CREATE TABLE tb_dict
+(
+  dict_id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL
+    COMMENT '字典ID',
+  dict_type    VARCHAR(20)                           NOT NULL
+    COMMENT '字典类型',
+  dict_code    VARCHAR(64)                           NOT NULL
+    COMMENT '字典代码',
+  value        VARCHAR(256)                          NOT NULL
+    COMMENT '值',
+  remark       VARCHAR(256)                          NOT NULL DEFAULT ''
+    COMMENT '备注',
+  sort         INT(11)                               NOT NULL DEFAULT 0
+    COMMENT '排序（从0开始）',
+  is_deleted   TINYINT                               NOT NULL DEFAULT 0
+    COMMENT '逻辑删除',
+  created_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP
+    COMMENT '创建时间',
+  updated_time TIMESTAMP                             NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    COMMENT '更新时间'
+)
+  COMMENT '字典表';
+CREATE UNIQUE INDEX type_code_UNIQUE
+  ON tb_dict (dict_type, dict_code);
+
 #====================初始数据====================#
 
 -- ----------------------------
@@ -179,10 +210,14 @@ VALUES (1, 'ROLE_ADMIN', '管理员');
 -- ----------------------------
 INSERT INTO tb_menu
   (menu_code, menu_name, parent_code, sort, icon)
-VALUES ('SYSTEM', '系统', '', 1, 'gear-b'),
+VALUES ('SYSTEM', '系统', '', 0, 'gear-b'),
        ('SYSTEM_USER', '用户管理', 'SYSTEM', 0, ''),
        ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 1, ''),
-       ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 2, '');
+       ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 2, ''),
+       ('SYSTEM_DICT', '数据字典', 'SYSTEM', 3, ''),
+
+       ('USER', '我的', '', 1, 'user'),
+       ('USER_PROFILE', '个人资料', 'USER', 0, '');
 
 -- ----------------------------
 --  data for tb_user_role

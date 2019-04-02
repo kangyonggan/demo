@@ -5,8 +5,10 @@ import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
 import com.kangyonggan.demo.model.User;
-import com.kangyonggan.demo.service.RoleService;
-import com.kangyonggan.demo.service.UserService;
+import com.kangyonggan.demo.service.system.DictService;
+import com.kangyonggan.demo.service.system.MenuService;
+import com.kangyonggan.demo.service.system.RoleService;
+import com.kangyonggan.demo.service.system.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
 import io.swagger.annotations.Api;
@@ -30,6 +32,12 @@ public class ValidateController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
+
+    @Autowired
+    private DictService dictService;
 
     /**
      * 密码校验
@@ -91,6 +99,47 @@ public class ValidateController extends BaseController {
         Response response = successResponse();
         if (roleService.existsRoleCode(roleCode)) {
             return response.failure("角色代码已存在");
+        }
+        return response;
+    }
+
+    /**
+     * 菜单代码校验
+     *
+     * @param menuCode
+     * @return
+     */
+    @GetMapping("menu")
+    @ApiOperation("菜单代码校验")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "menuCode", value = "菜单代码", required = true, example = "SYSTEM_USER")
+    })
+    @PermissionLogin
+    public Response validMenu(@RequestParam String menuCode) {
+        Response response = successResponse();
+        if (menuService.existsMenuCode(menuCode)) {
+            return response.failure("菜单代码已存在");
+        }
+        return response;
+    }
+
+    /**
+     * 字典代码校验
+     *
+     * @param dictCode
+     * @return
+     */
+    @GetMapping("dict")
+    @ApiOperation("字典代码校验")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "dictType", value = "字典类型", required = true, example = "ID_TYPE"),
+            @ApiImplicitParam(name = "dictCode", value = "字典代码", required = true, example = "0"),
+    })
+    @PermissionLogin
+    public Response validDict(@RequestParam String dictType, @RequestParam String dictCode) {
+        Response response = successResponse();
+        if (dictService.existsDictCode(dictType, dictCode)) {
+            return response.failure("字典代码已存在");
         }
         return response;
     }

@@ -1,9 +1,10 @@
-package com.kangyonggan.demo.service.impl;
+package com.kangyonggan.demo.service.impl.system;
 
 import com.kangyonggan.demo.annotation.MethodLog;
 import com.kangyonggan.demo.mapper.MenuMapper;
 import com.kangyonggan.demo.model.Menu;
-import com.kangyonggan.demo.service.MenuService;
+import com.kangyonggan.demo.service.BaseService;
+import com.kangyonggan.demo.service.system.MenuService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,14 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     @MethodLog
     public void updateMenu(Menu menu) {
         myMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    @Override
+    public boolean existsMenuCode(String menuCode) {
+        Menu menu = new Menu();
+        menu.setMenuCode(menuCode);
+
+        return super.exists(menu);
     }
 
     /**

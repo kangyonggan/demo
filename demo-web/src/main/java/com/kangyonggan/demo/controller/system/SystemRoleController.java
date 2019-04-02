@@ -1,14 +1,13 @@
 package com.kangyonggan.demo.controller.system;
 
 import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Collections2;
 import com.kangyonggan.demo.annotation.PermissionMenu;
 import com.kangyonggan.demo.controller.BaseController;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.model.Menu;
 import com.kangyonggan.demo.model.Role;
-import com.kangyonggan.demo.service.MenuService;
-import com.kangyonggan.demo.service.RoleService;
+import com.kangyonggan.demo.service.system.MenuService;
+import com.kangyonggan.demo.service.system.RoleService;
 import com.kangyonggan.demo.util.Collections3;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

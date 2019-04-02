@@ -1,7 +1,7 @@
 package com.kangyonggan.demo;
 
 import com.kangyonggan.demo.model.User;
-import com.kangyonggan.demo.service.UserService;
+import com.kangyonggan.demo.service.system.UserService;
 import com.kangyonggan.demo.service.impl.RedisService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

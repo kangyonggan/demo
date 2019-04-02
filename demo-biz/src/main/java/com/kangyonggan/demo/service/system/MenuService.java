@@ -1,4 +1,4 @@
-package com.kangyonggan.demo.service;
+package com.kangyonggan.demo.service.system;
 
 
 import com.kangyonggan.demo.model.Menu;
@@ -70,4 +70,12 @@ public interface MenuService {
      * @param menu
      */
     void updateMenu(Menu menu);
+
+    /**
+     * 校验菜单代码是否存在
+     *
+     * @param menuCode
+     * @return
+     */
+    boolean existsMenuCode(String menuCode);
 }

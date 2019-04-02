@@ -1,4 +1,4 @@
-package com.kangyonggan.demo.service.impl;
+package com.kangyonggan.demo.service.impl.system;
 
 import com.github.pagehelper.PageHelper;
 import com.kangyonggan.demo.annotation.MethodLog;
@@ -7,8 +7,9 @@ import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.Query;
 import com.kangyonggan.demo.mapper.UserMapper;
 import com.kangyonggan.demo.model.User;
-import com.kangyonggan.demo.service.RoleService;
-import com.kangyonggan.demo.service.UserService;
+import com.kangyonggan.demo.service.BaseService;
+import com.kangyonggan.demo.service.system.RoleService;
+import com.kangyonggan.demo.service.system.UserService;
 import com.kangyonggan.demo.util.Digests;
 import com.kangyonggan.demo.util.Encodes;
 import com.kangyonggan.demo.util.StringUtil;

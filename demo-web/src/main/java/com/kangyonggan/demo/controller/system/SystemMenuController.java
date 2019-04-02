@@ -4,7 +4,7 @@ import com.kangyonggan.demo.annotation.PermissionMenu;
 import com.kangyonggan.demo.controller.BaseController;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.model.Menu;
-import com.kangyonggan.demo.service.MenuService;
+import com.kangyonggan.demo.service.system.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

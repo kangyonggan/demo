@@ -1,7 +1,8 @@
-package com.kangyonggan.demo.service.impl;
+package com.kangyonggan.demo.service.impl.system;
 
 import com.kangyonggan.demo.model.UserProfile;
-import com.kangyonggan.demo.service.UserProfileService;
+import com.kangyonggan.demo.service.BaseService;
+import com.kangyonggan.demo.service.system.UserProfileService;
 import org.springframework.stereotype.Service;
 
 /**

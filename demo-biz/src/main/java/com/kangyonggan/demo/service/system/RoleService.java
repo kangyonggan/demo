@@ -1,4 +1,4 @@
-package com.kangyonggan.demo.service;
+package com.kangyonggan.demo.service.system;
 
 import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.model.Role;

@@ -1,14 +1,12 @@
-package com.kangyonggan.demo.service.impl;
+package com.kangyonggan.demo.service;
 
 import com.kangyonggan.demo.MyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author kangyonggan
  * @since 16/5/23
  */
-@Service
 public abstract class BaseService<T> {
 
     @Autowired

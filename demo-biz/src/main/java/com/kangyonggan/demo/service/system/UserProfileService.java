@@ -1,4 +1,4 @@
-package com.kangyonggan.demo.service;
+package com.kangyonggan.demo.service.system;
 
 /**
  * @author kangyonggan
