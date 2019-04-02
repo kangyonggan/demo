@@ -45,6 +45,8 @@ CREATE TABLE tb_user_profile
     COMMENT '用户ID',
   name         VARCHAR(32)  NOT NULL DEFAULT ''
     COMMENT '姓名',
+  avatar       VARCHAR(128) NOT NULL DEFAULT ''
+    COMMENT '头像',
   id_type      VARCHAR(1)   NOT NULL DEFAULT '0'
     COMMENT '证件类型',
   id_no        VARCHAR(128) NOT NULL DEFAULT ''

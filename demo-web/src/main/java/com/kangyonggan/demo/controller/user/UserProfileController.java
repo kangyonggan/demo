@@ -44,9 +44,10 @@ public class UserProfileController extends BaseController {
     @ApiOperation("更新用户信息")
     @PermissionMenu("USER_PROFILE")
     public Response updateProfile(UserProfile userProfile) {
+        Response response = successResponse();
         userProfile.setUserId(ParamsInterceptor.getUser().getUserId());
         userProfileService.updateUserProfile(userProfile);
-        return successResponse();
+        return response;
     }
 
     /**

@@ -6,9 +6,11 @@ import com.kangyonggan.demo.interceptor.ParamsInterceptor;
 import com.kangyonggan.demo.service.system.MenuService;
 import com.kangyonggan.demo.service.system.RoleService;
 import com.kangyonggan.demo.util.SpringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -17,6 +19,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class MvcConfigurer implements WebMvcConfigurer {
+
+    @Value("${app.file-root-path}")
+    private String fileRootPath;
 
     /**
      * 允许跨域
@@ -43,5 +48,15 @@ public class MvcConfigurer implements WebMvcConfigurer {
 
         // 权限认证
         registry.addInterceptor(new AuthInterceptor(roleService, menuService)).addPathPatterns("/**");
+    }
+
+    /**
+     * 处理上传文件的路径
+     *
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + fileRootPath + "/");
     }
 }

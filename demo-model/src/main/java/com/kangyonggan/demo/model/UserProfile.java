@@ -31,6 +31,12 @@ public class UserProfile implements Serializable {
     private String name;
 
     /**
+     * 头像
+     */
+    @ApiModelProperty(hidden = true)
+    private String avatar;
+
+    /**
      * 证件类型
      */
     @Column(name = "id_type")

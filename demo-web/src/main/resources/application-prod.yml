@@ -10,3 +10,6 @@ spring:
     sentinel:
       master: mymaster
       nodes: localhost:26379
+
+app:
+  file-root-path: /home/kyg/data/demo/upload

@@ -8,6 +8,10 @@ spring:
     redis:
       time-to-live: 1800000
       cache-null-values: false
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 10MB
 
 mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml

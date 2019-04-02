@@ -28,7 +28,7 @@
 
     <select id="selectUserProfileById" resultMap="UserDtoResultMap">
       SELECT
-          u.user_id, u.email, up.name, up.id_type, up.id_no, up.ip_address, u.created_time, u.is_deleted
+          u.user_id, u.email, up.avatar, up.name, up.id_type, up.id_no, up.ip_address, u.created_time, u.is_deleted
         FROM
           tb_user u, tb_user_profile up
         WHERE
