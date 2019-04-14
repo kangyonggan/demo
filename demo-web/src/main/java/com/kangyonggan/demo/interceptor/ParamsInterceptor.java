@@ -3,12 +3,14 @@ package com.kangyonggan.demo.interceptor;
 import com.kangyonggan.demo.constants.AppConstants;
 import com.kangyonggan.demo.model.User;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 处理请求
@@ -28,6 +30,9 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 保存当前请求
         currentRequest.set(request);
+
+        // 给日志设置uuid
+        ThreadContext.put("uuid", UUID.randomUUID().toString().replaceAll("-", ""));
         return true;
     }
 
@@ -35,6 +40,9 @@ public class ParamsInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // 从本地线程中移除请求
         currentRequest.remove();
+
+        // 移除日志uuid
+        ThreadContext.remove("uuid");
     }
 
     /**

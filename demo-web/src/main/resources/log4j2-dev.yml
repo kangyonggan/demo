@@ -6,7 +6,7 @@ Configuration:
     Console:
       name: STDOUT
       PatternLayout:
-        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%logger{36}.%t:%L] - %msg%n"
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%logger{36}.%t:%L] <%X{uuid}> - %msg%n"
 
   Loggers:
     Logger:
