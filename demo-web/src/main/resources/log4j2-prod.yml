@@ -10,6 +10,15 @@ Configuration:
         value: /home/kyg/logs/demo
 
   Appenders:
+    Rewrite:
+      name: MyRewrite
+      ignoreExceptions: true
+      MyRewritePolicy:
+        debug: false
+      AppenderRef:
+        - ref: AllFile
+        - ref: ErrorFile
+
     RollingFile:
       - name: AllFile
         fileName: ${path}/all.log
@@ -59,12 +68,10 @@ Configuration:
       level: debug
       additivity: false
       AppenderRef:
-        - ref: AllFile
-        - ref: ErrorFile
+        - ref: MyRewrite
 
     Root:
       level: info
       additivity: true
       AppenderRef:
-        - ref: AllFile
-        - ref: ErrorFile
+        - ref: MyRewrite
