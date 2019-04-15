@@ -3,6 +3,14 @@ Configuration:
   monitorInterval: 300
 
   Appenders:
+    Rewrite:
+      name: MyRewrite
+      ignoreExceptions: true
+      MyRewritePolicy:
+        debug: false
+      AppenderRef:
+        - ref: STDOUT
+
     Console:
       name: STDOUT
       PatternLayout:
@@ -14,10 +22,10 @@ Configuration:
       level: debug
       additivity: false
       AppenderRef:
-        - ref: STDOUT
+        - ref: MyRewrite
 
     Root:
       level: info
       additivity: true
       AppenderRef:
-        - ref: STDOUT
+        - ref: MyRewrite
