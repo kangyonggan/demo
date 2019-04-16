@@ -48,7 +48,7 @@ public class User implements Serializable {
      * 逻辑删除
      */
     @Column(name = "is_deleted")
-    @ApiModelProperty(value = "逻辑删除", required = false, example = "0")
+    @ApiModelProperty(hidden = true)
     private Byte isDeleted;
 
     /**

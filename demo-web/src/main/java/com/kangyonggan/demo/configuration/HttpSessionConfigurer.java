@@ -15,7 +15,7 @@ import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 public class HttpSessionConfigurer {
 
     /**
-     * token放在http请求的header中，name=X-Auth-Token
+     * token放在http请求的header中，name=x-auth-token
      *
      * @return
      */

@@ -8,6 +8,8 @@ package com.kangyonggan.demo.constants;
  */
 public interface AppConstants {
 
+    String DEFAULT_CHARSET = "UTF-8";
+
     /**
      * Hash Interations
      */

@@ -1,23 +1,22 @@
 package com.kangyonggan.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.kangyonggan.demo.annotation.Secret;
 import com.kangyonggan.demo.constants.Resp;
-import com.kangyonggan.demo.dto.Params;
-import com.kangyonggan.demo.dto.Query;
 import com.kangyonggan.demo.dto.Response;
 import com.kangyonggan.demo.interceptor.ParamsInterceptor;
 import com.kangyonggan.demo.util.IpUtil;
-import com.kangyonggan.demo.util.StringUtil;
+import com.kangyonggan.demo.util.SecretRequestWrapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * @author kangyonggan
  * @since 8/9/18
  */
 @Log4j2
+@Secret
 public class BaseController {
 
     /**
@@ -60,99 +59,77 @@ public class BaseController {
     }
 
     /**
-     * 获取请求参数
+     * 获取参数
      *
-     * @return 返回请求参数
+     * @param key
+     * @return
      */
-    protected Params getRequestParams() {
-        Params params = new Params();
-
-        // 所有查询条件
-        params.setQuery(getQuery());
-
-        // 分页相关参数
-        params.setPageSize(getIntegerParam("pageSize", getIntegerParam("limit", 10)));
-        int offset = getIntegerParam("offset", 0);
-        int pageNum = getIntegerParam("pageNum", offset / params.getPageSize() + 1);
-        params.setPageNum(pageNum);
-
-        // 排序相关
-        String sort = params.getQuery().getString("sort");
-        params.setSort(sort);
-        params.setOrder(getStringParam("order", "asc"));
-        params.getQuery().put("sort", params.getSort());
-        params.getQuery().put("order", params.getOrder());
-
-        return params;
+    protected Integer getIntegerAttr(String key) {
+        return getIntegerAttr(key, null);
     }
 
     /**
-     * 获取查询条件
+     * 获取参数
      *
-     * @return 返回查询条件
+     * @param key
+     * @param defaultValue
+     * @return
      */
-    protected Query getQuery() {
-        Query query = new Query();
-        Map<String, String[]> parameterMap = ParamsInterceptor.getParameterMap();
-        for (String key : parameterMap.keySet()) {
-            String[] value = parameterMap.get(key);
-            if (value != null && value.length == 1) {
-                if ("sort".equals(key)) {
-                    query.put(key, StringUtil.camelToUnderLine(value[0]));
-                } else {
-                    query.put(key, value[0]);
-                }
-            } else {
-                query.put(key, value);
-            }
-        }
-
-        return query;
+    protected Integer getIntegerAttr(String key, Integer defaultValue) {
+        Integer value = getAttrs().getInteger(key);
+        return value == null ? defaultValue : value;
     }
 
     /**
-     * 获取String类型的请求参数
+     * 获取参数
      *
-     * @param name 参数名
-     * @return 返回参数值
+     * @param key
+     * @return
      */
-    protected String getStringParam(String name) {
-        return ParamsInterceptor.getParameter(name);
+    protected String getStringAttr(String key) {
+        return getStringAttr(key, null);
     }
 
     /**
-     * 获取String类型的请求参数, 带默认值
+     * 获取参数
      *
-     * @param name         参数名
-     * @param defaultValue 默认值
-     * @return 返回参数值
+     * @param key
+     * @param defaultValue
+     * @return
      */
-    protected String getStringParam(String name, String defaultValue) {
-        return ParamsInterceptor.getParameter(name, defaultValue);
+    protected String getStringAttr(String key, String defaultValue) {
+        String value = getAttrs().getString(key);
+        return value == null ? defaultValue : value;
     }
 
     /**
-     * 获取int类型的请求参数
+     * 获取参数
      *
-     * @param name 参数名
-     * @return 返回int型的参数值
+     * @param key
+     * @return
      */
-    protected int getIntegerParam(String name) {
-        return Integer.parseInt(ParamsInterceptor.getParameter(name));
+    protected Object getAttr(String key) {
+        return getAttr(key, null);
     }
 
     /**
-     * 获取int类型的请求参数, 带默认值
+     * 获取参数
      *
-     * @param name         参数名
-     * @param defaultValue 默认值
-     * @return 返回int型的参数值
+     * @param key
+     * @param defaultValue
+     * @return
      */
-    protected int getIntegerParam(String name, int defaultValue) {
-        try {
-            return Integer.parseInt(ParamsInterceptor.getParameter(name));
-        } catch (Exception e) {
-            return defaultValue;
-        }
+    protected Object getAttr(String key, Object defaultValue) {
+        return getAttrs().getOrDefault(key, defaultValue);
+    }
+
+    /**
+     * 获取参数
+     *
+     * @return
+     */
+    protected JSONObject getAttrs() {
+        SecretRequestWrapper request = (SecretRequestWrapper) ParamsInterceptor.getRequest();
+        return request.getAttrs();
     }
 }

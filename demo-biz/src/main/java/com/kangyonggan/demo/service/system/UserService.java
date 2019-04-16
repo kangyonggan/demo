@@ -1,10 +1,7 @@
 package com.kangyonggan.demo.service.system;
 
-import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.dto.UserDto;
 import com.kangyonggan.demo.model.User;
-
-import java.util.List;
 
 /**
  * @author kangyonggan
@@ -19,14 +16,6 @@ public interface UserService {
      * @return
      */
     User findUserByEmail(String email);
-
-    /**
-     * 搜索用户
-     *
-     * @param params
-     * @return
-     */
-    List<User> searchUsers(Params params);
 
     /**
      * 更新用户

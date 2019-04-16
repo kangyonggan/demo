@@ -12,4 +12,7 @@ spring:
       nodes: localhost:26379
 
 app:
-  file-root-path: /home/kyg/data/demo/upload
+  version: @project.version@
+  file-root-path: /root/data/demo/upload
+  aes-key: 1234567812345678
+  aes-iv: 1234567812345678

@@ -18,6 +18,3 @@ mybatis:
 
 logging:
   config: classpath:log4j2-@env@.yml
-
-app:
-  version: @project.version@

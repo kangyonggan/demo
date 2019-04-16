@@ -10,4 +10,7 @@ spring:
     password: 123456
 
 app:
-  file-root-path: D:\data\demo\upload
+  version: @project.version@
+  file-root-path: /Users/kyg/data/demo/upload
+  aes-key: 1234567812345678
+  aes-iv: 1234567812345678

@@ -1,6 +1,5 @@
 package com.kangyonggan.demo.service.system;
 
-import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.model.Role;
 
 import java.util.List;
@@ -41,14 +40,6 @@ public interface RoleService {
      * @return
      */
     List<Role> findRolesByUserId(Long userId);
-
-    /**
-     * 搜索角色
-     *
-     * @param params
-     * @return
-     */
-    List<Role> searchRoles(Params params);
 
     /**
      * 删除角色

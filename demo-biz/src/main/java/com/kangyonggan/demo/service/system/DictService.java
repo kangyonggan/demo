@@ -1,6 +1,5 @@
 package com.kangyonggan.demo.service.system;
 
-import com.kangyonggan.demo.dto.Params;
 import com.kangyonggan.demo.model.Dict;
 
 import java.util.List;
@@ -10,14 +9,6 @@ import java.util.List;
  * @since 2019-04-02
  */
 public interface DictService {
-
-    /**
-     * 搜索字典
-     *
-     * @param params
-     * @return
-     */
-    List<Dict> searchDicts(Params params);
 
     /**
      * 删除字典
